@@ -8,7 +8,7 @@ namespace Lab5_Sorts
     internal class Program
     {
         static void Main(string[] args)
-        {         
+        {
             Console.WriteLine("=== Lab 5: Sorting Algorithmsin Action ===\n");
 
             // Test Bubble Sort
@@ -23,7 +23,30 @@ namespace Lab5_Sorts
             int[] numbers2 = { 38, 27, 43, 3, 9 };
             Console.WriteLine("Original array: [" + string.Join(", ", numbers2) + "]");
             MergeSort(numbers2);
-            Console.WriteLine("Sorted array: [" + string.Join(", ", numbers2) + "]");
+            Console.WriteLine("Sorted array: [" + string.Join(", ", numbers2) + "]\n");
+
+            // Performance comparison
+            Console.WriteLine("=== Performance Comparison ===\n");
+            // Sizes to test
+            int[] sizes = { 100, 1000, 5000, 10000 };
+            Console.WriteLine($"{"Array Size",-12}{"BubbleSort (ms)",-20}{"MergeSort (ms)"}");
+            foreach (int size in sizes)
+            {
+                int[] testArray1 = GenerateRandomArray(size);
+                int[] testArray2 = (int[])testArray1.Clone();
+                // Measure Bubble Sort time
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                BubbleSort(testArray1);
+                stopwatch.Stop();
+                long bubbleSortTime = stopwatch.ElapsedMilliseconds;
+                // Measure Merge Sort time
+                stopwatch.Restart();
+                MergeSort(testArray2);
+                stopwatch.Stop();
+                long mergeSortTime = stopwatch.ElapsedMilliseconds;
+                Console.WriteLine($"{size,-12}{bubbleSortTime,-20}{mergeSortTime}");
+            }
+
         }
 
         // This method implements the Bubble Sort algorithm to sort an array of integers in ascending order.
@@ -111,6 +134,23 @@ namespace Lab5_Sorts
             {
                 arr[k++] = right[j++];
             }
+        }
+
+        /// <summary>
+        /// Generates an array of random integers of specified size
+        /// </summary>
+        /// <param name="size">array size</param>
+        /// <returns>array of random integers</returns>
+        /// <remarks>Complexity time O(n) and space O(n)</remarks>
+        static int[] GenerateRandomArray(int size)
+        {
+            Random rand = new Random();
+            int[] arr = new int[size];
+            for (int i = 0; i < size; i++)
+            {
+                arr[i] = rand.Next(0, 10000); // Random integers between 0 and 9999
+            }
+            return arr;
         }
     }
 }
