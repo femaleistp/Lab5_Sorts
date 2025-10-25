@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*
+ * Lab 5: Sorting Algorithms in Action
+ * Course: IT 415 — Data Structures and Algorithms
+ * Author: Brittany Hancock
+ * Term: Fall 2025
+ * 
+ * This program compares a simple O(n²) sort (Bubble Sort) 
+ * with an efficient O(n log n) sort (Merge Sort).
+ * It prints before/after examples and measures runtime 
+ * on arrays of various sizes using Stopwatch.
+ */
+
+using System;
 using System.Linq;
 using System.Diagnostics;
 using System.Globalization;
@@ -28,8 +40,9 @@ namespace Lab5_Sorts
             // Performance comparison
             Console.WriteLine("=== Performance Comparison ===\n");
             // Sizes to test
-            int[] sizes = { 100, 1000, 5000, 10000 };
-            Console.WriteLine($"{"Array Size",-12}{"BubbleSort (ms)",-20}{"MergeSort (ms)"}");
+            int[] sizes = { 100, 1000, 10000, 100000 };
+            Console.WriteLine($"{"Array Size",-12}{"BubbleSort (ms)",-20}{"MergeSort (ms)",-15}");
+            Console.WriteLine(new string('-', 47)); // prints a divider line
             foreach (int size in sizes)
             {
                 int[] testArray1 = GenerateRandomArray(size);
